@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id="content"></div>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+    <script>
+      const converter = new showdown.Converter();
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `http://localhost:8000/${location.hash.slice(1)}.md`);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === xhr.DONE) {
+          document.getElementById("content").innerHTML = converter.makeHtml(
+            xhr.response
+          );
+        }
+      };
+      xhr.send();
+    </script>
+  </body>
+</html>
